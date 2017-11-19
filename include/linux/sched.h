@@ -564,6 +564,9 @@ struct task_struct {
     //wxf:2017.10.23  add gc start time and gc end time
     u64 gc_start_time;
     u64 gc_end_time;
+    //wxf 20171024, add vm thread start and end time for timekeeping in JVM
+    u64 vm_start_time;
+    u64 vm_end_time;
 
 	struct sched_rt_entity		rt;
 #ifdef CONFIG_CGROUP_SCHED

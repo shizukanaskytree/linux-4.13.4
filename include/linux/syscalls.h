@@ -909,4 +909,9 @@ asmlinkage long sys_statx(int dfd, const char __user *path, unsigned flags,
 //wxf
 asmlinkage long sys_listProcessInfo(void);
 asmlinkage long sys_start_gc_timer(int __user *gc_tid, int __user nr_gc);
+asmlinkage long sys_end_gc_timer(int __user *gc_tid, int __user nr_gc, unsigned long long __user *time);
+asmlinkage long sys_start_vm_timer(int __user vm_tid);
+asmlinkage long sys_end_vm_timer(int __user vm_tid, unsigned long long __user *time);
+asmlinkage long sys_start_timer(int __user vm_tid);
+asmlinkage long sys_end_timer(int __user vm_tid, unsigned long long __user *time);
 #endif

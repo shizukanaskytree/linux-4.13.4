@@ -341,6 +341,12 @@
 332	common	statx			sys_statx
 333 common listProcessInfo sys_listProcessInfo
 334 common start_gc_timer sys_start_gc_timer
+335 common end_gc_timer sys_end_gc_timer
+336 common start_vm_timer sys_start_vm_timer
+337 common end_vm_timer sys_end_vm_timer
+338 common start_timer sys_start_timer
+339 common end_timer sys_end_timer
+
 #
 # x32-specific system call numbers start at 512 to avoid cache impact
 # for native 64-bit operation.

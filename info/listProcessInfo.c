@@ -31,6 +31,6 @@ asmlinkage long sys_listProcessInfo(void) {
                   );
         printk("\n\n");
     }
-    printk("wxf: Hello World! 1001 \n");
+    printk("wxf: Hello World! 1024,1447 \n");
     return 0;
 }

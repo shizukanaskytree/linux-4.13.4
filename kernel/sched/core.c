@@ -3840,6 +3840,45 @@ SYSCALL_DEFINE1(nice, int, increment)
 }
 
 #endif
+//wxf, 20171105, test timer and how to add syscall..
+SYSCALL_DEFINE1(start_timer,
+                int __user, vm_tid){
+    struct task_struct *tsk = NULL;
+    tsk = find_task_by_vpid(vm_tid);
+    printk("-------------------\n");
+    printk("tid = %d \n", vm_tid);
+    if(!tsk){
+        printk("start_vm_timer, tsk is NULL, error!");
+        return -1;
+    }else{
+        tsk->vm_start_time = tsk->se.sum_exec_runtime;
+        printk("start_vm_timer:: sum_exec_runtime = %llu \n", tsk->se.sum_exec_runtime);
+        printk("start_vm_timer = %llu \n", tsk->vm_start_time);
+    }
+    return 0;
+}
+
+SYSCALL_DEFINE2(end_timer,
+        int __user, vm_tid,
+        unsigned long long __user *, time){
+    struct task_struct *tsk = NULL;
+    unsigned long long vm_time = 0;
+    printk("-------------------\n");
+    printk("tid = %d \n", vm_tid);
+    tsk = find_task_by_vpid(vm_tid);
+    if(!tsk){
+        printk("end_vm_timer, tsk is NULL, error!");
+        return -1;
+    }else{
+        tsk->vm_end_time = tsk->se.sum_exec_runtime;
+        printk("end_vm_timer:: sum_exec_runtime = %llu \n", tsk->se.sum_exec_runtime);
+        printk("end_vm_timer = %llu \n", tsk->vm_end_time);
+        printk("end_vm_time: vm_elapsed_time = %llu \n", tsk->vm_end_time - tsk->vm_start_time );
+        vm_time = tsk->vm_end_time - tsk->vm_start_time;
+        copy_to_user(time, &vm_time, sizeof(unsigned long long));
+    }
+    return 0;
+}
 
 /**
  * task_prio - return the priority value of a given task.
